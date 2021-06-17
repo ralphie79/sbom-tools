@@ -41,6 +41,7 @@ def detectfile(infile):
         test_f.seek(0)
         zipfile = test_f.read(2) == b'\x50\x4b'
 
+    # TODO: Unzip zip file
     if zipfile:
         print ('Skipping zipfile')
         return
@@ -73,6 +74,7 @@ def detectfile(infile):
             else:
                 print("Unknown JSON: {} ".format(j))
         
+        # TODO: Make XML work
         if x is not None:
             format = 'xml'
 
@@ -80,6 +82,7 @@ def detectfile(infile):
 
             print(root)
         
+        # Check for tag-value
         if x is None and j is None:
             fl.seek(0)
 
