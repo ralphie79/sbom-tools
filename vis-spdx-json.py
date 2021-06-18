@@ -37,7 +37,7 @@ outfile = '{}-vis.html'.format(infile)
 
 print ('---- processing: {}'.format(infile))
 
-#print(opts_string)
+print(opts_string)
 
 nt = Network("1500px", "1500px", directed=True)
 
@@ -78,7 +78,7 @@ with open(sys.argv[1]) as fl:
 
 
 nt.show_buttons()
-#nt.set_options(opts_string)
+nt.set_options(opts_string)
 
 print("Output: {}".format(outfile))
 nt.show(outfile)

@@ -2,8 +2,8 @@ import sys
 import os
 import gzip
 import json
-import xml.etree.ElementTree as ET
-import lxml.etree
+import re
+import xmltodict
 
 def try_json(fh):
     try:
@@ -15,38 +15,34 @@ def try_json(fh):
 
 
 def try_xml(fh):
-
     try: 
-        #tree = ET.parse(fh)
-
-        tree = lxml.etree.parse(fh)
+        tree = xmltodict.parse(''.join(fh.readlines()))
 
         return tree
-
     except Exception as e:
-        print(e)
+        #print(e)
         return None
+
 
 
 def detectfile(infile):
 
-    standard = None
-    format = None
-    version = None
     gzipped = False
     zipfile = False
+    info = {}
 
     with open(infile, 'rb') as test_f:
         gzipped = test_f.read(2) == b'\x1f\x8b'
         test_f.seek(0)
         zipfile = test_f.read(2) == b'\x50\x4b'
 
+
     # TODO: Unzip zip file
     if zipfile:
-        print ('Skipping zipfile')
+        #print ('Skipping zipfile')
         return
 
-    with open(infile) as fl:
+    with open(infile, encoding='utf-8') as fl:
         
         j = None
 
@@ -63,50 +59,100 @@ def detectfile(infile):
 
         if j is not None:
             if 'bomFormat' in j:
-                standard = 'cdx'
-                format = 'json'
+                info['standard'] = 'cdx'
+                info['format']  = 'json'
                 if 'specVersion' in j:
-                    version = j['specVersion']
+                    info['version']  = j['specVersion']
             elif 'spdxVersion' in j:
-                standard = 'spdx'
-                format = 'json'
-                version = j['spdxVersion']
+                info['standard'] = 'spdx'
+                info['format'] = 'json'
+                info['version']  = j['spdxVersion']
             else:
                 print("Unknown JSON: {} ".format(j))
         
         # TODO: Make XML work
         if x is not None:
-            format = 'xml'
+            info['format'] = 'xml'
 
-            root = x.xpath('//SoftwareIdentity')
+            if 'SoftwareIdentity' in x: 
+                swid = x['SoftwareIdentity']
 
-            print(root)
+                info['standard'] = 'swid'
+                info['tagId'] = swid['@tagId']
+                info['swidVersion'] = swid['@version']
+
+            elif 'SBOM' in x and 'SoftwareIdentity' in x['SBOM']:
+                info['standard'] = 'swid-multi'
+
+            elif 'bom' in x:
+                info['standard'] = 'cdx'
+                #version = x['specVersion']
+            elif 'rdf:RDF' in x:
+                rdfRoot = x['rdf:RDF']
+                spdxns = None
+                for ns in rdfRoot:
+                    if rdfRoot[ns] == 'http://spdx.org/rdf/terms#':
+                        spdxns = ns.replace('@xmlns:', '')
+                        print(spdxns)
+                
+                spdxRoot = rdfRoot['{}:SpdxDocument'.format(spdxns)]
+                version = spdxRoot['{}:specVersion'.format(spdxns)]
+
+                #print(spdxRoot)
+                #namespace = 
+                info['standard'] = 'spdx'
         
         # Check for tag-value
         if x is None and j is None:
             fl.seek(0)
 
-            lines = fl.readlines()
-            fulldoc = ''.join(lines)
-            if 'SPDXVersion: ' in fulldoc:
-                # tag value
-                standard = 'spdx'
-                format = 'tv'
-                version = 'XXX'
+            try: 
+                lines = fl.readlines()
+                fulldoc = '\n'.join(lines)
+                #if 'SPDXVersion: ' in fulldoc:
+                m = re.search('SPDXVersion: SPDX-(\d+\.\d+)', fulldoc)
+                if m:
+                    # tag value
+                    info['standard'] = 'spdx'
+                    info['format'] = 'tv'
+                    info['version'] = m.group(1)
+            except UnicodeDecodeError as u:
+                # If the file turns out not to be text.. 
+                pass
 
+    return info
 
-    if standard is not None:
-        print("FOUND: {} - {} {} {} ".format(infile, standard, format, version)) 
 
 
 def traverse(indir):
 
+    sboms = []
+
     for r, dirs, files in os.walk(indir):
         for f in files:
             path = os.path.join(r, f)
-            print(path)
-            detectfile(path)
+            #print(path)
+            try: 
+                sbom = detectfile(path)
+                if sbom is not None and 'standard' in sbom:
+                    sbom['file'] = path
+                    sboms.append(sbom)
+                    print("SBOM: {}::{} ".format(path, sbom))
+                else:
+                    print("NOTSBOM: {} ".format(path))
+
+            except Exception as e:
+                print("Exception when parsing {}".format(path))
+                print(e)
+                sys.exit(1)
+
+    return sboms
 
 
-traverse(sys.argv[1])
+
+found = traverse(sys.argv[1])
+
+
+#print(found)
+
 

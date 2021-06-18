@@ -79,7 +79,12 @@ with open(sys.argv[1]) as fl:
       rewindLine = l
    
     for r in relationships:
-      nt.add_edge(r[0], r[1], label=r[2])
+      try: 
+        nt.add_edge(r[0], r[1], label=r[2])
+      except Exception as e:
+        # do nothing print('-error adding node: {}'.format(e))
+        pass
+
       
 
 nt.show_buttons()
