@@ -80,6 +80,6 @@ with open(sys.argv[1]) as fl:
 nt.show_buttons()
 nt.set_options(opts_string)
 
-print("Output: {}".format(outfile))
+print("Output: \"{}\"".format(outfile))
 nt.show(outfile)
 

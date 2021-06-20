@@ -4,6 +4,10 @@ import gzip
 import json
 import re
 import xmltodict
+from CdxXmlSbom import CdxXmlSbom
+from SpdxJsonSbom import SpdxJsonSbom
+from SpdxTvSbom import SpdxTvSbom
+
 
 def try_json(fh):
     try:
@@ -33,9 +37,12 @@ def detectfile(infile):
 
     with open(infile, 'rb') as test_f:
         gzipped = test_f.read(2) == b'\x1f\x8b'
+        
         test_f.seek(0)
         zipfile = test_f.read(2) == b'\x50\x4b'
 
+        info['gzipped'] = gzipped
+        info['zipfile'] = zipfile
 
     # TODO: Unzip zip file
     if zipfile:
@@ -122,6 +129,23 @@ def detectfile(infile):
 
     return info
 
+def try_parse(sbominfo):
+    parser = None
+
+    if sbominfo['standard'] == 'spdx':
+        if sbominfo['format'] == 'json':
+            parser = SpdxJsonSbom(sbominfo['file'])
+        elif sbominfo['format'] == 'xml':
+            parser = None
+        elif sbominfo['format'] == 'tv':
+            parser = SpdxTvSbom(sbominfo['file'])
+    elif sbominfo['standard'] == 'cdx':
+        if sbominfo['format'] == 'xml':
+            parser = CdxXmlSbom(sbominfo['file'])
+    elif sbominfo['standard'] == 'swid' or sbominfo['standard'] == 'swid-multi':
+        parser = None
+    
+    return parser
 
 
 def traverse(indir):
@@ -152,6 +176,31 @@ def traverse(indir):
 
 found = traverse(sys.argv[1])
 
+print(" Found: {} SBOMs".format(len(found)))
+
+parsed = []
+
+for sbom in found:
+    if 'gzipped' in sbom and sbom['gzipped']:
+        continue
+
+    p = try_parse(sbom)
+    if p is not None:
+        parsed.append(p)
+
+print(" Parsed: {} SBOMs".format(len(parsed)))
+
+for p in parsed:
+    rpt = p.dumpJson()
+
+    print(rpt)
+
+
+    hashes = []
+    hashes.extend(p.get_all_hashes('SHA-1'))
+    hashes.extend(p.get_all_hashes('SHA1'))
+
+    #print(' SBOM-file: {} Hashes: {} '.format(p.fileName, hashes))
 
 #print(found)
 
