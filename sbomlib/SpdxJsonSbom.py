@@ -1,7 +1,6 @@
-
-from GenericSbom import GenericSbom
+from .GenericSbom import GenericSbom
+from .SbomTypes import * 
 import json
-import SbomTypes
 
 class SpdxJsonSbom(GenericSbom):
 
@@ -21,7 +20,7 @@ class SpdxJsonSbom(GenericSbom):
 
 
     def nodeToPackage(self, pkg):
-        p = SbomTypes.Package()
+        p = Package()
         
         p.id = pkg['SPDXID']
         p.name = pkg['name']
@@ -36,7 +35,7 @@ class SpdxJsonSbom(GenericSbom):
         
 
     def nodeToRelationship(self, rel):
-        r = SbomTypes.Relationship()
+        r = Relationship()
 
         r.fromId = rel['spdxElementId']
         r.toId = rel['relatedSpdxElement']
@@ -46,7 +45,7 @@ class SpdxJsonSbom(GenericSbom):
 
     def nodeToFile(self, fil):
         
-        f = SbomTypes.File()
+        f = File()
 
         f.name = fil['fileName']
         f.id = fil['SPDXID']
@@ -54,7 +53,7 @@ class SpdxJsonSbom(GenericSbom):
         if 'checksums' in fil:
             hashes = []
             for cc in fil['checksums']:
-                h = SbomTypes.Hash()
+                h = Hash()
                 h.algo = cc['algorithm']
                 h.value = cc['checksumValue']
                 hashes.append(h)
@@ -82,12 +81,3 @@ class SpdxJsonSbom(GenericSbom):
                 for f in data['files']:
                     self.relationships.append(self.nodeToFile(f))
         
-
-if __name__ == '__main__':
-    x = SpdxJsonSbom('./inputs/Tern/simple_container/hello_world_linux_spdx.json.txt')
-
-
-    x = SpdxJsonSbom('./inputs/Synopsys Black Duck/libresolar-zephyr/plugfest-libresolar-source-sbom-plugfest.spdx.json')
-
-    x.dump()
-

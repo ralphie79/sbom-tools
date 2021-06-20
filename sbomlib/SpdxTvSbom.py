@@ -1,7 +1,6 @@
-
-from GenericSbom import GenericSbom
+from .GenericSbom import GenericSbom
 import json
-import SbomTypes
+from .SbomTypes import * 
 
 class SpdxTvSbom(GenericSbom):
 
@@ -11,7 +10,7 @@ class SpdxTvSbom(GenericSbom):
     product = None
 
     def consumeFile(self, fil):
-        f = SbomTypes.File()
+        f = File()
 
         f.name = fil['FileName']
 
@@ -21,7 +20,7 @@ class SpdxTvSbom(GenericSbom):
             if a in fil:
                 if f.hashes is None:
                     f.hashes = []
-                h = SbomTypes.Hash()
+                h = Hash()
                 h.algo = a
                 h.value = fil[a]
                 f.hashes.append(h)
@@ -30,7 +29,7 @@ class SpdxTvSbom(GenericSbom):
 
 
     def consumePackage(self, pkg):
-        p = SbomTypes.Package()
+        p = Package()
         
         p.id = pkg['SPDXID']
         p.name = pkg['PackageName']
@@ -44,7 +43,7 @@ class SpdxTvSbom(GenericSbom):
         if 'PackageChecksum' in pkg:
             if p.hashes is None:
                 p.hashes = []
-            h = SbomTypes.Hash()
+            h = Hash()
             h.algo = 'SHA1' # default type
             h.value = pkg['PackageChecksum']
             p.hashes.append(h)
@@ -52,7 +51,7 @@ class SpdxTvSbom(GenericSbom):
         if 'MD5' in pkg:
             if p.hashes is None:
                 p.hashes = []
-            h = SbomTypes.Hash()
+            h = Hash()
             h.algo = 'MD5' 
             h.value = pkg['MD5']
             p.hashes.append(h)
@@ -60,7 +59,7 @@ class SpdxTvSbom(GenericSbom):
         if 'SHA1' in pkg:
             if p.hashes is None:
                 p.hashes = []
-            h = SbomTypes.Hash()
+            h = Hash()
             h.algo = 'SHA1' 
             h.value = pkg['SHA1']
             p.hashes.append(h)
@@ -68,7 +67,7 @@ class SpdxTvSbom(GenericSbom):
         if 'SHA256' in pkg:
             if p.hashes is None:
                 p.hashes = []
-            h = SbomTypes.Hash()
+            h = Hash()
             h.algo = 'SHA256' 
             h.value = pkg['SHA256']
             p.hashes.append(h)
@@ -88,13 +87,21 @@ class SpdxTvSbom(GenericSbom):
             lastk = None
 
             for ln in fh.readlines():
-                if not ln.startswith("#"):
+                if ln.startswith("#") and not inTextTag:
+                    if(len(fragment)> 0):
+                        
+                        fragments.append(fragment)
+                        fragment = {}
+                else:
                     ln = ln.strip()
                     
+                    #print (len(ln))
                     if(len(ln) == 0 and not inTextTag):
                         if len(fragment) > 0:
                             fragments.append(fragment)
-                        fragment = {}
+                            fragment = {}
+                            #print('ending fragment: ')
+                            #print(fragment)
                         continue
 
                     if not inTextTag:
@@ -103,13 +110,15 @@ class SpdxTvSbom(GenericSbom):
 
                             v = v.strip()
 
-
+                            if k == 'PackageName':
+                                #print("{} / {}".format(k, v))
+                                pass
 
                             if k == 'Relationship':
                                 if self.relationships == None:
                                     self.relationships = []
 
-                                r = SbomTypes.Relationship()
+                                r = Relationship()
                                 r.fromId, r.type, r.toId = v.split(' ', 2)
 
                                 self.relationships.append(r)
@@ -130,29 +139,40 @@ class SpdxTvSbom(GenericSbom):
 
                             if '<text>' in v:
                                 inTextTag = True
+                                # if it also ends on same line
+                                if '</text>' in v:
+                                    inTextTag = False
+
                         else:
                             # assume continuation of last entry
+                            #print(ln)
                             fragment[lastk] = fragment[lastk] + " " + ln    
 
                     else:
                         fragment[lastk] = fragment[lastk] + " " + ln
-                        if '</text>' in v:
+                        #print("in text: {} ".format(ln))
+                        if '</text>' in ln:
+                            #print("text ending: {}".format(ln))
                             inTextTag = False
-
-                else:
-                  if(len(fragment)> 0):
-                    fragments.append(fragment)
-
             
             if(len(fragment)> 0):
                 fragments.append(fragment)
+                fragment = {}
 
+            #print(fragments)
+
+            packageDeDupe = set()
             for frag in fragments:
                 if 'PackageName' in frag:
+                    #print(frag)
                     if self.packages == None:
                         self.packages = []
 
-                    self.packages.append(self.consumePackage(frag))
+                    foundPkg = self.consumePackage(frag)
+                    #print(foundPkg.name)
+                    if foundPkg.name not in packageDeDupe:
+                        self.packages.append(foundPkg)
+                        packageDeDupe.add(foundPkg.name)
                 
                 if 'FileName' in frag:
                     if self.files == None:
@@ -165,17 +185,4 @@ class SpdxTvSbom(GenericSbom):
 
 
 
-        
-
-if __name__ == '__main__':
-    
-    x = SpdxTvSbom('inputs/Tern/simple_container/hello_world_linux_spdxtagvalue.txt')
-
-    x = SpdxTvSbom('inputs/Cisco/Snort30/example-snort30.spdx')
-
-    x = SpdxTvSbom('inputs/Anchore/dir_serve/serve.spdx')
-
-    x  = SpdxTvSbom('inputs/aDolus - FACT/node/spdx/NodeExt.zip.spdx')
-
-    x.dump()
 

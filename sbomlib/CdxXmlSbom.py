@@ -1,10 +1,13 @@
 
 from typing import OrderedDict
-from GenericSbom import GenericSbom
+#from . import * 
+#from GenericSbom import GenericSbom
 import json
-import SbomTypes
+#import sbomlib.SbomTypes
 import xmltodict
 
+from .GenericSbom import GenericSbom
+from .SbomTypes import * 
 
 class CdxXmlSbom(GenericSbom):
 
@@ -19,7 +22,7 @@ class CdxXmlSbom(GenericSbom):
         ret = []
 
         for h in hashes['hash']:
-            r = SbomTypes.Hash()
+            r = Hash()
             r.algo = h['@alg']
             r.value = h["#text"]
             ret.append(r)
@@ -28,7 +31,7 @@ class CdxXmlSbom(GenericSbom):
 
 
     def nodeToPackage(self, pkg):
-        p = SbomTypes.Package()
+        p = Package()
         
         if '@bom-ref' in pkg:
             p.id = pkg['@bom-ref']
@@ -59,7 +62,7 @@ class CdxXmlSbom(GenericSbom):
         if 'dependency' in rel:
             ret = []
             if isinstance(rel['dependency'], OrderedDict):
-                r = SbomTypes.Relationship()
+                r = Relationship()
 
                 r.fromId = rel['@ref']
                 r.toId = rel['dependency']['@ref']
@@ -68,7 +71,7 @@ class CdxXmlSbom(GenericSbom):
                 ret.append(r)
             else: 
                 for d in rel['dependency']:
-                    r = SbomTypes.Relationship()
+                    r = Relationship()
 
                     r.fromId = rel['@ref']
                     r.toId = d['@ref']
@@ -124,25 +127,4 @@ class CdxXmlSbom(GenericSbom):
                 if 'files' in bom:
                     self.files = []
                     print('has files')
-
-if __name__ == '__main__':
-
-    c = CdxXmlSbom('inputs/BlackBerry/time_with_dependencies.cyclonedx.bom.xml')
-
-    c = CdxXmlSbom('inputs/Cisco/CISCO-AMP-ENDPOINTS-ANDROID/CISCO-AMP-ENDPOINTS-ANDROID-DRAFT-cyclonedx.xml')
-
-    c.dump()
-
-    c = CdxXmlSbom('./inputs/Anchore/container_node_latest/node_latest.cyclonedx.xml')
-
-    c.dump()
-
-    c = CdxXmlSbom('./inputs/BlackBerry/time.cyclonedx.bom.xml')
-
-    c.dump()
-
-    c = CdxXmlSbom('./inputs/BlackBerry/charge_control_firmware.cyclonedx.bom.xml')
-
-    c.dump()
-
 

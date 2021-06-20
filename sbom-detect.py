@@ -4,9 +4,8 @@ import gzip
 import json
 import re
 import xmltodict
-from CdxXmlSbom import CdxXmlSbom
-from SpdxJsonSbom import SpdxJsonSbom
-from SpdxTvSbom import SpdxTvSbom
+#from sbomlib import SpdxJsonSbom, SpdxTvSbom, CdxXmlSbom
+import sbomlib
 
 
 def try_json(fh):
@@ -134,14 +133,14 @@ def try_parse(sbominfo):
 
     if sbominfo['standard'] == 'spdx':
         if sbominfo['format'] == 'json':
-            parser = SpdxJsonSbom(sbominfo['file'])
+            parser = sbomlib.SpdxJsonSbom(sbominfo['file'])
         elif sbominfo['format'] == 'xml':
             parser = None
         elif sbominfo['format'] == 'tv':
-            parser = SpdxTvSbom(sbominfo['file'])
+            parser = sbomlib.SpdxTvSbom(sbominfo['file'])
     elif sbominfo['standard'] == 'cdx':
         if sbominfo['format'] == 'xml':
-            parser = CdxXmlSbom(sbominfo['file'])
+            parser = sbomlib.CdxXmlSbom(sbominfo['file'])
     elif sbominfo['standard'] == 'swid' or sbominfo['standard'] == 'swid-multi':
         parser = None
     
@@ -161,7 +160,7 @@ def traverse(indir):
                 if sbom is not None and 'standard' in sbom:
                     sbom['file'] = path
                     sboms.append(sbom)
-                    print("SBOM: {}::{} ".format(path, sbom))
+                    #print("SBOM: {}::{} ".format(path, sbom))
                 else:
                     print("NOTSBOM: {} ".format(path))
 
@@ -190,18 +189,31 @@ for sbom in found:
 
 print(" Parsed: {} SBOMs".format(len(parsed)))
 
+reports = []
+allhashes = {}
+
 for p in parsed:
-    rpt = p.dumpJson()
-
-    print(rpt)
-
+    reports.append(p.dumpJson())
 
     hashes = []
     hashes.extend(p.get_all_hashes('SHA-1'))
     hashes.extend(p.get_all_hashes('SHA1'))
 
+    allhashes[p.fileName] = hashes
     #print(' SBOM-file: {} Hashes: {} '.format(p.fileName, hashes))
 
-#print(found)
+
+
+print(' Writing all sboms to sbom-data.json.. ')
+with open('sbom-data.json', 'w') as fh:
+    json.dump(found, fh)
+
+print(' Writing analysis to sbom-report.json.. ')
+with open('sbom-report.json', 'w') as fh:
+    json.dump(reports, fh)
+
+print(' Writing all SHA-1 hashes to sbom-hashes.json.. ')
+with open('sbom-hashes.json', 'w') as fh:
+    json.dump(allhashes, fh)
 
 
