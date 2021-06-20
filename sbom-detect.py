@@ -7,26 +7,17 @@ import xmltodict
 
 def try_json(fh):
     try:
-        js = json.load(fh)
-
-        return js
+        return json.load(fh)
     except Exception as e:
         return None
-
 
 def try_xml(fh):
     try: 
-        tree = xmltodict.parse(''.join(fh.readlines()))
-
-        return tree
+        return xmltodict.parse(''.join(fh.readlines()))
     except Exception as e:
-        #print(e)
         return None
 
-
-
 def detectfile(infile):
-
     gzipped = False
     zipfile = False
     info = {}
@@ -36,16 +27,13 @@ def detectfile(infile):
         test_f.seek(0)
         zipfile = test_f.read(2) == b'\x50\x4b'
 
-
     # TODO: Unzip zip file
     if zipfile:
-        #print ('Skipping zipfile')
+        sys.stderr.write(f"Skipping zipfile: {infile}\n")
         return
 
     with open(infile, encoding='utf-8') as fl:
-        
         j = None
-
         if gzipped:
             with gzip.open(infile) as fh:
                 j = try_json(fh)
@@ -55,7 +43,6 @@ def detectfile(infile):
             j = try_json(fl)
             fl.seek(0)
             x = try_xml(fl)
-
 
         if j is not None:
             if 'bomFormat' in j:
@@ -93,13 +80,11 @@ def detectfile(infile):
                 for ns in rdfRoot:
                     if rdfRoot[ns] == 'http://spdx.org/rdf/terms#':
                         spdxns = ns.replace('@xmlns:', '')
-                        print(spdxns)
+                        #print(spdxns)
                 
                 spdxRoot = rdfRoot['{}:SpdxDocument'.format(spdxns)]
                 version = spdxRoot['{}:specVersion'.format(spdxns)]
 
-                #print(spdxRoot)
-                #namespace = 
                 info['standard'] = 'spdx'
         
         # Check for tag-value
@@ -123,36 +108,27 @@ def detectfile(infile):
     return info
 
 
-
 def traverse(indir):
-
     sboms = []
-
     for r, dirs, files in os.walk(indir):
         for f in files:
             path = os.path.join(r, f)
-            #print(path)
             try: 
                 sbom = detectfile(path)
                 if sbom is not None and 'standard' in sbom:
                     sbom['file'] = path
                     sboms.append(sbom)
-                    print("SBOM: {}::{} ".format(path, sbom))
                 else:
-                    print("NOTSBOM: {} ".format(path))
+                    pass
+                    sys.stderr.write("NOTSBOM: {}\n".format(path))
 
             except Exception as e:
-                print("Exception when parsing {}".format(path))
-                print(e)
+                sys.stderr.write(f"Exception when parsing {path}\n{e}")
                 sys.exit(1)
 
     return sboms
 
-
-
 found = traverse(sys.argv[1])
+sys.stdout.write(json.dumps(found))
 
-
-#print(found)
-
-
+# vim: et nu ts=4
