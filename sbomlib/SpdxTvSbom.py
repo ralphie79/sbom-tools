@@ -1,5 +1,4 @@
 from .GenericSbom import GenericSbom
-import json
 from .SbomTypes import * 
 
 class SpdxTvSbom(GenericSbom):

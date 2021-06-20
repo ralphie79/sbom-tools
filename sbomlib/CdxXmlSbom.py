@@ -1,9 +1,5 @@
 
 from typing import OrderedDict
-#from . import * 
-#from GenericSbom import GenericSbom
-import json
-#import sbomlib.SbomTypes
 import xmltodict
 
 from .GenericSbom import GenericSbom
