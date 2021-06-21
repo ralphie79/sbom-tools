@@ -33,6 +33,35 @@ Many things:
 
 ## Examples
 
+### sbom-checker.py
+
+
+	+-------------------------+---------------------------------------------------+-------+-----+
+	| Key                     | Explanation                                       | Count | %   |
+	+-------------------------+---------------------------------------------------+-------+-----+
+	| bom                     | Total # SBOMs found                               | 67    | 100 |
+	| got_final_product       | Final product info was found                      | 62    | 93  |
+	| packages                | SBOM packages found                               | 67    | 100 |
+	| packages_with_ids       | SBOM packages which have the expected ID fields   | 67    | 100 |
+	| packages_with_names     | SBOM packages which have the expected name fields | 67    | 100 |
+	| relationships           | SBOM has relationships                            | 48    | 72  |
+	| sbom_author             | SBOM has an author                                | 45    | 67  |
+	| sbom_created            | SBOM has a creation date                          | 59    | 88  |
+	| sbom_target             | SBOM has 'sbom of what' declared                  | 62    | 93  |
+	| SpdxJsonSbom            | SPDX JSON Format                                  | 13    | 19  |
+	| SpdxTvSbom              | SPDX Tag-Value Format                             | 38    | 57  |
+	| only two relationships  | SBOM has only two relationship                    | 9     | 13  |
+	| only one package        | SBOM has only one package                         | 18    | 27  |
+	| files                   | SBOM has file-level resolution                    | 18    | 27  |
+	| files_with_hashes       | File entries which have hashes                    | 18    | 27  |
+	| packages_with_hashes    | SBOM has hashes at the component/package layer    | 26    | 39  |
+	| packages_with_suppliers | SBOM packages that have supplier names            | 20    | 30  |
+	| CdxXmlSbom              | Cyclone DX XML Format                             | 12    | 18  |
+	| only one relationship   | SBOM has only one relationship                    | 12    | 18  |
+	| CdxJsonSbom             | Cyclone DX JSON Format                            | 4     | 6   |
+	+-------------------------+---------------------------------------------------+-------+-----+
+
+
 ### Simple
 ![simple](basic-container.png )
 
