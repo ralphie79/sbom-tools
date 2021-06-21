@@ -104,6 +104,32 @@ class CdxXmlSbom(GenericSbom):
                         for c in complist:
                             self.packages.append(self.nodeToPackage(c))
                         
+                if 'metadata' in bom:
+                    
+                    md = bom['metadata']
+                    fp = FinalProduct()
+
+                    fp.name = md['component']['name']
+
+                    if 'timestamp' in md:
+                        fp.creationDate = md['timestamp']
+                    
+                    if 'authors' in md:
+                        if isinstance(md['authors'], list):
+                            nn = ''
+                            for n in md['authors']['author']:
+                                nn = nn + ' ' + n['name']
+                            fp.sbomAuthor = nn
+                    
+                    if 'component' in md:
+                        fp.name = md['component']['name']
+                        if 'purl' in md['component']:
+                            fp.id = md['component']['purl']
+                    
+                    if 'supplier' in md:
+                        fp.supplierName = md['supplier']['name']
+                    
+                    self.product = fp
 
                 if 'dependencies' in bom:
                     self.relationships = []

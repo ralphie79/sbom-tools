@@ -172,7 +172,18 @@ class SpdxTvSbom(GenericSbom):
                     if foundPkg.name not in packageDeDupe:
                         self.packages.append(foundPkg)
                         packageDeDupe.add(foundPkg.name)
-                
+                if 'DocumentName' in frag:
+                    fp = FinalProduct()
+                    fp.name = frag['DocumentName']
+
+                    if 'Creator' in frag:
+                        fp.sbomAuthor = frag['Creator']
+
+                    if 'Created' in frag:
+                        fp.creationDate = frag['Created']
+
+                    self.product = fp
+
                 if 'FileName' in frag:
                     if self.files == None:
                         self.files = []

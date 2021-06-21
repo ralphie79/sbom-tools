@@ -26,11 +26,13 @@ class Package:
 
 @dataclass
 class FinalProduct:
-    id: str
-    supplierName: str
-    name: str
-    hash: List[Hash]
-    rawdata: Any
+    id: str = None
+    supplierName: str = None
+    sbomAuthor: str = None
+    name: str = None
+    hash: List[Hash] = None
+    rawdata: Any = None
+    creationDate: str = None
 
 
 @dataclass

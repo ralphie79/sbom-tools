@@ -84,7 +84,17 @@ class GenericSbom:
             report['files_with_hashes'] = hashes
         else:
             report['files'] = 0
-            
+        
+
+        if self.product is None:
+            report['got_final_product'] = False
+        else:
+            fp = self.product
+            report['got_final_product'] = True
+            report['sbom_author'] = fp.sbomAuthor
+            report['sbom_target'] = fp.name
+            report['sbom_created'] = fp.creationDate
+
 
         return report
 

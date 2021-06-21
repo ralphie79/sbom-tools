@@ -75,6 +75,27 @@ class SpdxJsonSbom(GenericSbom):
                 for r in data['relationships']:
                     self.relationships.append(self.nodeToRelationship(r))
             
+            
+            if 'creationInfo' in data:
+                ci = data['creationInfo']
+
+                fp = FinalProduct()
+
+                fp.name = data['name']
+                
+                if 'creators' in ci:
+                    if isinstance(ci['creators'], list):
+                        fp.sbomAuthor = ','.join(ci['creators'])
+                
+                if 'creator' in ci:
+                    if isinstance(ci['creator'], list):
+                        fp.sbomAuthor = ','.join(ci['creator'])
+
+
+                if 'created' in ci:
+                    fp.creationDate = ci['created']
+                
+                self.product = fp
 
             if 'files' in data:
                 self.files = []
