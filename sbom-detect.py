@@ -86,14 +86,14 @@ for f in found:
 
 print(' Writing all sboms to sbom-data.json.. ')
 with open('sbom-data.json', 'w') as fh:
-    json.dump(foundData, fh)
+    json.dump(foundData, fh, indent=4, sort_keys=True)
 
 print(' Writing analysis to sbom-report.json.. ')
 with open('sbom-report.json', 'w') as fh:
-    json.dump(reports, fh)
+    json.dump(reports, fh, indent=4, sort_keys=True)
 
 print(' Writing all SHA-1 hashes to sbom-hashes.json.. ')
 with open('sbom-hashes.json', 'w') as fh:
-    json.dump(allhashes, fh)
+    json.dump(allhashes, fh, indent=4, sort_keys=True)
 
 

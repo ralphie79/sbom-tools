@@ -25,6 +25,9 @@ Many things:
 
 * Limit the graph/display to only N tiers of SBOM data for ease of navigation
 * Check for presence/absence of 'required' SBOM fields and display in each node
+* Support for SWID
+* Support for SPDX XML
+* Support for sub-components embeedded in CDX
 * ... 
 
 
