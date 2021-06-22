@@ -30,7 +30,6 @@ def traverse(indir):
     return sboms
 
 found = traverse(sys.argv[1])
-sys.stdout.write(json.dumps(found))
 
 print(" Found: {} SBOMs".format(len(found)))
 

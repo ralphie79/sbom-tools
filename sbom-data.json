@@ -1,0 +1,714 @@
+[
+    {
+        "file": "D:\\data\\sboms\\Anchore\\container_acme-weather-station\\acme-weather-station.cyclonedx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\container_acme-weather-station\\acme-weather-station.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\container_acme-weather-station\\acme-weather-station.spdx.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\container_node_latest\\node_latest.cyclonedx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\container_node_latest\\node_latest.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\container_node_latest\\node_latest.spdx.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\dir_keycloak\\keycloak.cyclonedx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\dir_keycloak\\keycloak.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\dir_keycloak\\keycloak.spdx.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\dir_node-express-realworld-example-app\\node-express-realworld-example-app.cyclonedx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\dir_node-express-realworld-example-app\\node-express-realworld-example-app.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\dir_node-express-realworld-example-app\\node-express-realworld-example-app.spdx.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\dir_serve\\serve.cyclonedx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\dir_serve\\serve.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Anchore\\dir_serve\\serve.spdx.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\AppThreat\\keycloak.cyclonedx.bom.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "cdx",
+        "version": "1.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\AppThreat\\keycloak.cyclonedx.bom.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\AppThreat\\node-express-realworld-example-app-license.cyclonedx.bom.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "cdx",
+        "version": "1.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\AppThreat\\node-express-realworld-example-app-license.cyclonedx.bom.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\AppThreat\\node-express-realworld-example-app.cyclonedx.bom.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "cdx",
+        "version": "1.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\AppThreat\\node-express-realworld-example-app.cyclonedx.bom.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\AppThreat\\serve-with-license.cyclonedx.bom.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "cdx",
+        "version": "1.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\AppThreat\\serve-with-license.cyclonedx.bom.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\AppThreat\\serve.cyclonedx.bom.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "cdx",
+        "version": "1.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\AppThreat\\serve.cyclonedx.bom.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\BlackBerry\\charge_control_firmware.cyclonedx.bom.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\BlackBerry\\hello_world.cyclonedx.bom.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\BlackBerry\\time.cyclonedx.bom.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\BlackBerry\\time_with_dependencies.cyclonedx.bom.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\BlackDuck\\container-complex\\plugfest-container-node-16-slim.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\BlackDuck\\fkautz-serve\\plugfest-fkautz-serve-10.spdx.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\BlackDuck\\keycloak\\plugfest-keycloak-source-4d1576b96a0227fd8f7ec9ee0e714f68289606ff.spdx.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\BlackDuck\\libresolar-zephyr\\plugfest-libresolar-source-sbom-plugfest.spdx.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\BlackDuck\\node-express\\plugfest-node-1-0-0.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\BlackDuck\\time\\plugfest-time-Default-Detect-Version.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Cisco\\CISCO-AMP-ENDPOINTS-ANDROID\\CISCO-AMP-ENDPOINTS-ANDROID-DRAFT-cyclonedx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Cisco\\CISCO-AMP-ENDPOINTS-ANDROID\\CISCO-AMP-ENDPOINTS-ANDROID-DRAFT-swid.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "swid",
+        "swidVersion": "2.1.0",
+        "tagId": "Cisco-Cisco%20Secure%20Endpoints%20for%20Android-2.1.0",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Cisco\\CISCO-AMP-ENDPOINTS-ANDROID\\CISCO-AMP-ENDPOINTS-ANDROID-DRAFT.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.1",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Cisco\\CISCO-AMP-ENDPOINTS-ANDROID\\CycloneDX-CISCO-AMP-ENDPOINTS-ANDROID-DRAFT-10-6-2021-21-51.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "cdx",
+        "version": "1.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Cisco\\openVulnQuery1_31\\CycloneDX-openVulnQuery1-31-10-6-2021-21-59.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "cdx",
+        "version": "1.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Cisco\\openVulnQuery1_31\\openVulnQuery1_31-cyclonedx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Cisco\\openVulnQuery1_31\\openVulnQuery1_31-swid.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "swid",
+        "swidVersion": "1.31",
+        "tagId": "Cisco-openVulnQuery-1.31",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Cisco\\openVulnQuery1_31\\openVulnQuery1_31.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.1",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Cisco\\Snort30\\example-snort30-cyclonedx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Cisco\\Snort30\\example-snort30-swid.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "swid",
+        "swidVersion": "3.0",
+        "tagId": "Cisco-Snort-3.0",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Cisco\\Snort30\\example-snort30.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.1",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\FOSSology\\Generation\\node-express-realworld-example-app\\Edited_SPDX2_node-express-realworld-example-app-master.zip_1623162876.spdx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\FOSSology\\Generation\\node-express-realworld-example-app\\SPDX2_node-express-realworld-example-app-master.zip_1623161447.spdx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\FOSSology\\Generation\\serve-1.0.0\\Edited_SPDX2_serve-1.0.0.tar.gz_1623162573.spdx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\FOSSology\\Generation\\serve-1.0.0\\SPDX2_serve-1.0.0.tar.gz_1623161333.spdx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\FOSSology\\Generation\\time-1.9\\SPDX2_time-1.9.tar.gz_1623160737.spdx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\IonChannel\\SBOM Production\\Keycloak\\SPDX\\keycloak.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\IonChannel\\SBOM Production\\node-express-realworld-example-app\\SPDX\\node-express-realworld-example-app.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\IonChannel\\SBOM Production\\serve\\SPDX\\serve.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Nerves\\blinky.ex.cyclonedx.bom.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "cdx",
+        "version": "1.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Nerves\\blinky.ex_with_dependencies.cyclonedx.bom.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "cdx",
+        "version": "1.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\OpenEmbedded\\acl\\acl-2.3.1-r0.spdx.json.gz",
+        "format": "json",
+        "gzipped": true,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\OpenEmbedded\\core-image-base\\core-image-base.spdx.json.gz",
+        "format": "json",
+        "gzipped": true,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\sFractal\\A1.nerves.blinky.ex_with_dependencies.cyclonedx.bom.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "cdx",
+        "version": "1.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\sFractal\\B1.P1.sfractal.blinky.ex.cyclonedx.bom.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\sFractal\\B2.sfractal.blinky.ex.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\sFractal\\B3.sfractal.blinky.ex.cyclonedx.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "cdx",
+        "version": "1.3",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\sFractal\\B5.sfractal.blinky.ex.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.1",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\sFractal\\B6.sfractal.blinky.ex.swid.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "swid",
+        "swidVersion": "",
+        "tagId": "sfractal-blinky.ex-",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\sFractal\\B7.sfractal.blinky.ex.cyclonedx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\sFractal\\B8.sfractal.blinky.ex.cyclonedx.json",
+        "format": "json",
+        "gzipped": false,
+        "standard": "cdx",
+        "version": "1.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\sFractal\\C1.P1.aDolus.blinky.ex.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\sFractal\\sfractal.QuadQuizBlocks.cyclonedx.xml",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "cdx",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\sFractal\\sfractal.QuadQuizBlocks.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Stryker\\node_express_sbom.spdx",
+        "format": "xml",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.1",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Tern\\complex_container\\node_16_slim_spdx.json.txt",
+        "format": "json",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Tern\\complex_container\\node_16_slim_spdxtagvalue.txt",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Tern\\simple_container\\hello_world_linux_spdx.json.txt",
+        "format": "json",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "SPDX-2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Tern\\simple_container\\hello_world_linux_spdxtagvalue.txt",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Tern\\simple_container\\hello_world_linux_spdxtagvalue_scancode.txt",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\Tidelift\\node-express-realworld-example-app.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.0",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\WindRiver\\acl-2.2.52-r0.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.1",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\charge-controller-firmware\\spdx\\app.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\charge-controller-firmware\\spdx\\build.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\charge-controller-firmware\\spdx\\zephyr.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\charge-controller-firmware\\spdx-with-headers\\app.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\charge-controller-firmware\\spdx-with-headers\\build.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\charge-controller-firmware\\spdx-with-headers\\sdk.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\charge-controller-firmware\\spdx-with-headers\\zephyr.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\zephyr-hello-world\\spdx\\app.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\zephyr-hello-world\\spdx\\build.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\zephyr-hello-world\\spdx\\zephyr.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\zephyr-hello-world\\spdx-with-headers\\app.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\zephyr-hello-world\\spdx-with-headers\\build.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\zephyr-hello-world\\spdx-with-headers\\sdk.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    },
+    {
+        "file": "D:\\data\\sboms\\ZephyrWest\\zephyr-hello-world\\spdx-with-headers\\zephyr.spdx",
+        "format": "tv",
+        "gzipped": false,
+        "standard": "spdx",
+        "version": "2.2",
+        "zipfile": false
+    }
+]
