@@ -13,6 +13,33 @@ Given a directory of inputs, crawl through and identify files which are likely t
 
 Basic visualization of SBOM relationships via pyvis. 
 
+### sbomlib
+
+Multi-format multi-standard SBOM content sniffer and barebones parser.
+
+Example usage:
+
+           import sbomlib
+
+           try: 
+                s = sbomlib.BomSniffer(path) # Opens file and attempts to detect SBOM
+                
+                sbom = s.sbom # returns SBOM data if found
+
+                if sbom is not None and 'standard' in sbom:
+                    
+                    p = sbom.get_parser() # get SBOM parser
+
+                    pkg = p.get_packages() # get packages from SBOM
+
+                    print("SBOM: {}::{} ".format(path, sbom))
+                else:
+                    print("NOTSBOM: {} ".format(path))
+
+            except Exception as e:
+                print("Exception when parsing {}".format(path))
+                print(e)
+
 
 ## Why not use 'proper' parsers/libraries?
 
@@ -28,6 +55,7 @@ Many things:
 * Support for SWID
 * Support for SPDX XML
 * Support for sub-components embeedded in CDX
+* sbom-critic.py?
 * ... 
 
 
