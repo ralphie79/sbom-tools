@@ -4,109 +4,7 @@ import gzip
 import json
 import re
 import xmltodict
-
-def try_json(fh):
-    try:
-        return json.load(fh)
-    except Exception as e:
-        return None
-
-def try_xml(fh):
-    try: 
-        return xmltodict.parse(''.join(fh.readlines()))
-    except Exception as e:
-        return None
-
-def detectfile(infile):
-    gzipped = False
-    zipfile = False
-    info = {}
-
-    with open(infile, 'rb') as test_f:
-        gzipped = test_f.read(2) == b'\x1f\x8b'
-        test_f.seek(0)
-        zipfile = test_f.read(2) == b'\x50\x4b'
-
-    # TODO: Unzip zip file
-    if zipfile:
-        sys.stderr.write(f"Skipping zipfile: {infile}\n")
-        return
-
-    with open(infile, encoding='utf-8') as fl:
-        j = None
-        if gzipped:
-            with gzip.open(infile) as fh:
-                j = try_json(fh)
-                fh.seek(0)
-                x = try_xml(fh)
-        else:
-            j = try_json(fl)
-            fl.seek(0)
-            x = try_xml(fl)
-
-        if j is not None:
-            if 'bomFormat' in j:
-                info['standard'] = 'cdx'
-                info['format']  = 'json'
-                if 'specVersion' in j:
-                    info['version']  = j['specVersion']
-            elif 'spdxVersion' in j:
-                info['standard'] = 'spdx'
-                info['format'] = 'json'
-                info['version']  = j['spdxVersion']
-            else:
-                print("Unknown JSON: {} ".format(j))
-        
-        # TODO: Make XML work
-        if x is not None:
-            info['format'] = 'xml'
-
-            if 'SoftwareIdentity' in x: 
-                swid = x['SoftwareIdentity']
-
-                info['standard'] = 'swid'
-                info['tagId'] = swid['@tagId']
-                info['swidVersion'] = swid['@version']
-
-            elif 'SBOM' in x and 'SoftwareIdentity' in x['SBOM']:
-                info['standard'] = 'swid-multi'
-
-            elif 'bom' in x:
-                info['standard'] = 'cdx'
-                #version = x['specVersion']
-            elif 'rdf:RDF' in x:
-                rdfRoot = x['rdf:RDF']
-                spdxns = None
-                for ns in rdfRoot:
-                    if rdfRoot[ns] == 'http://spdx.org/rdf/terms#':
-                        spdxns = ns.replace('@xmlns:', '')
-                        #print(spdxns)
-                
-                spdxRoot = rdfRoot['{}:SpdxDocument'.format(spdxns)]
-                version = spdxRoot['{}:specVersion'.format(spdxns)]
-
-                info['standard'] = 'spdx'
-        
-        # Check for tag-value
-        if x is None and j is None:
-            fl.seek(0)
-
-            try: 
-                lines = fl.readlines()
-                fulldoc = '\n'.join(lines)
-                #if 'SPDXVersion: ' in fulldoc:
-                m = re.search('SPDXVersion: SPDX-(\d+\.\d+)', fulldoc)
-                if m:
-                    # tag value
-                    info['standard'] = 'spdx'
-                    info['format'] = 'tv'
-                    info['version'] = m.group(1)
-            except UnicodeDecodeError as u:
-                # If the file turns out not to be text.. 
-                pass
-
-    return info
-
+import sbomlib
 
 def traverse(indir):
     sboms = []
@@ -114,10 +12,13 @@ def traverse(indir):
         for f in files:
             path = os.path.join(r, f)
             try: 
-                sbom = detectfile(path)
+                s = sbomlib.BomSniffer(path)
+                
+                sbom = s.sbom
+
                 if sbom is not None and 'standard' in sbom:
-                    sbom['file'] = path
-                    sboms.append(sbom)
+                    sboms.append(s)
+                    #print("SBOM: {}::{} ".format(path, sbom))
                 else:
                     pass
                     sys.stderr.write("NOTSBOM: {}\n".format(path))
@@ -131,4 +32,63 @@ def traverse(indir):
 found = traverse(sys.argv[1])
 sys.stdout.write(json.dumps(found))
 
-# vim: et nu ts=4
+print(" Found: {} SBOMs".format(len(found)))
+
+parsed = []
+breakdown = {}
+
+for sbom in found:
+    p = None
+
+    k = '{}-{}'.format(sbom.sbom['standard'],sbom.sbom['format'])
+    
+    if k in breakdown:
+        breakdown[k] = breakdown[k] + 1
+    else:
+        breakdown[k] = 1
+
+    try:
+        p = sbom.get_parser()
+    except Exception as e:
+        print('Error when parsing: {} '.format(sbom.sbom['file']))
+        print(e)
+
+    if p is not None:
+        parsed.append(p)
+
+print(" Parsed: {} SBOMs".format(len(parsed)))
+
+for k in breakdown:
+    print('    {}: {}'.format(k, breakdown[k]))
+
+reports = []
+allhashes = {}
+
+for p in parsed:
+    reports.append(p.dumpJson())
+
+    hashes = []
+    hashes.extend(p.get_all_hashes('SHA-1'))
+    hashes.extend(p.get_all_hashes('SHA1'))
+
+    allhashes[p.fileName] = hashes
+    #print(' SBOM-file: {} Hashes: {} '.format(p.fileName, hashes))
+
+
+foundData = []
+for f in found:
+    foundData.append(f.sbom)
+
+print(' Writing all sboms to sbom-data.json.. ')
+with open('sbom-data.json', 'w') as fh:
+    json.dump(foundData, fh, indent=4, sort_keys=True)
+
+print(' Writing analysis to sbom-report.json.. ')
+with open('sbom-report.json', 'w') as fh:
+    json.dump(reports, fh, indent=4, sort_keys=True)
+
+print(' Writing all SHA-1 hashes to sbom-hashes.json.. ')
+with open('sbom-hashes.json', 'w') as fh:
+    json.dump(allhashes, fh, indent=4, sort_keys=True)
+
+
